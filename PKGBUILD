@@ -2,8 +2,8 @@
 # Contributor: Metal A-wing <1 at 233 dot email>
 
 pkgname=deno
-pkgver=1.33.1
-_commit=d5f52ef7ac20cb116fad574e3017f194124be312
+pkgver=1.33.2
+_commit=c2a61a4192609615beba363f5606e6e04ae60c97
 pkgrel=1
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
@@ -11,20 +11,9 @@ url="https://deno.land"
 license=('MIT')
 options=('!lto')
 depends=('gcc-libs')
-makedepends=('git' 'python' 'cargo' 'nodejs')
-source=("git+https://github.com/denoland/deno.git#commit=$_commit"
-        "git+https://github.com/denoland/deno_std.git"
-        "git+https://github.com/web-platform-tests/wpt.git")
-sha512sums=('SKIP'
-            'SKIP'
-            'SKIP')
-
-prepare() {
-  cd $pkgname
-  git submodule init
-  git config submodule."test_util/std".url "$srcdir"/deno_std
-  git config submodule."test_util/wpt".url "$srcdir"/wpt
-}
+makedepends=('git' 'python' 'rust' 'nodejs')
+source=("git+https://github.com/denoland/deno.git#commit=$_commit")
+sha512sums=('SKIP')
 
 build() {
   cd $pkgname
