@@ -2,8 +2,8 @@
 # Contributor: Metal A-wing <1 at 233 dot email>
 
 pkgname=deno
-pkgver=1.36.0
-_commit=6ba245fe2570b29e35a4fd296a196a58870b1e3c
+pkgver=1.36.1
+_commit=9f1455b75087e9e41a995bbb6a8a7f3059a0185a
 pkgrel=1
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
@@ -11,7 +11,7 @@ url="https://deno.land"
 license=('MIT')
 options=('!lto')
 depends=('gcc-libs')
-makedepends=('git' 'python' 'rust' 'nodejs')
+makedepends=('git' 'python' 'rust' 'nodejs' 'cmake')
 source=("git+https://github.com/denoland/deno.git#commit=$_commit")
 sha512sums=('SKIP')
 
