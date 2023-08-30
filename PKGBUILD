@@ -2,8 +2,8 @@
 # Contributor: Metal A-wing <1 at 233 dot email>
 
 pkgname=deno
-pkgver=1.36.2
-_commit=a7f5244a72cc6c00949c02a180d0d9cdf2bf1672
+pkgver=1.36.3
+_commit=55029c72618323014aa49317de9124375adeb13f
 pkgrel=1
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
@@ -14,12 +14,6 @@ depends=('gcc-libs')
 makedepends=('git' 'python' 'rust' 'nodejs' 'cmake')
 source=("git+https://github.com/denoland/deno.git#commit=$_commit")
 sha512sums=('SKIP')
-
-prepare() {
-  cd $pkgname
-  # https://github.com/denoland/deno/issues/19528
-  git cherry-pick -n c8dc6b14ec5c1b6de28118ed3b07d037eaaaf702
-}
 
 build() {
   cd $pkgname
