@@ -11,7 +11,7 @@ url="https://deno.land"
 license=('MIT')
 options=('!lto')
 depends=('gcc-libs')
-makedepends=('git' 'python' 'rust' 'nodejs' 'cmake' 'protobuf')
+makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#commit=$_commit")
 sha512sums=('SKIP')
 
@@ -21,6 +21,19 @@ build() {
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
+  local _extra_gn_args=(
+    'custom_toolchain="//build/toolchain/linux/unbundle:default"'
+    'host_toolchain="//build/toolchain/linux/unbundle:default"'
+  )
+
+  export CC=clang CXX=clang++ AR=ar NM=nm
+  export CFLAGS="${CFLAGS//-fstack-clash-protection/}"
+  export CXXFLAGS="${CXXFLAGS//-fstack-clash-protection/}"
+  export V8_FROM_SOURCE=1
+  export CLANG_BASE_PATH=/usr
+  export GN=/usr/bin/gn NINJA=/usr/bin/ninja
+  export EXTRA_GN_ARGS="${_extra_gn_args[@]}"
 
   cargo build --release
 }
