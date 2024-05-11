@@ -28,8 +28,6 @@ build() {
   )
 
   export CC=clang CXX=clang++ AR=ar NM=nm
-  export CFLAGS="${CFLAGS//-fstack-clash-protection/}"
-  export CXXFLAGS="${CXXFLAGS//-fstack-clash-protection/}"
   export V8_FROM_SOURCE=1
   export CLANG_BASE_PATH=/usr
   export GN=/usr/bin/gn NINJA=/usr/bin/ninja
