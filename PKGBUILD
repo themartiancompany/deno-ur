@@ -4,7 +4,7 @@
 pkgname=deno
 pkgver=1.42.2
 _commit=04c0a4cbf7c00811d3ace3184c1cb8597a0e88f1
-pkgrel=1
+pkgrel=2
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
 url="https://deno.land"
