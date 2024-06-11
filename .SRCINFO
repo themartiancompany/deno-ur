@@ -1,6 +1,6 @@
 pkgbase = deno
 	pkgdesc = A secure runtime for JavaScript and TypeScript
-	pkgver = 1.43.5
+	pkgver = 1.43.6
 	pkgrel = 1
 	url = https://deno.land
 	arch = x86_64
@@ -17,7 +17,7 @@ pkgbase = deno
 	makedepends = protobuf
 	depends = gcc-libs
 	options = !lto
-	source = git+https://github.com/denoland/deno.git#commit=a13c4531fd2c08617767cc8a0788b9e20ac27d45
-	sha512sums = cfb2ec417d09e1a7736a573322eb713a101ef5c8ad90ce5c71d6b9179874f1ab90bbc2cd581b60dc2fb096f4b472098825a0e65e152997b4cdbf9f0c20017b2a
+	source = git+https://github.com/denoland/deno.git#commit=7df3d5aeec14f24e5fdec1e1e6f5739f1fbeebbe
+	sha512sums = fa184a797f56bb42cb1ebe090d99cbf316ec343d88e57ea91451b09ca725c02a8c3e3f5ec1dabf15d4b0071773ef0d76438304f10f31253a251cac0eee8f299a
 
 pkgname = deno
