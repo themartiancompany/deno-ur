@@ -67,8 +67,8 @@ package() {
   ./target/release/deno completions bash > "$pkgdir"/usr/share/bash-completion/completions/deno
   install -dm755 "$pkgdir"/usr/share/zsh/site-functions
   ./target/release/deno completions zsh > "$pkgdir"/usr/share/zsh/site-functions/_deno
-  install -dm755 "$pkgdir"/usr/share/fish/vendor_functions.d
-  ./target/release/deno completions fish > "$pkgdir"/usr/share/fish/vendor_functions.d/deno.fish
+  install -dm755 "$pkgdir"/usr/share/fish/vendor_completions.d
+  ./target/release/deno completions fish > "$pkgdir"/usr/share/fish/vendor_completions.d/deno.fish
 
   install -Dm644 LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
