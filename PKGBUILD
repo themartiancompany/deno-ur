@@ -3,7 +3,7 @@
 
 pkgname=deno
 pkgver=1.46.3
-pkgrel=1
+pkgrel=2
 _rusty_v8_ver=0.105.0
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
