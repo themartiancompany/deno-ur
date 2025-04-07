@@ -1,6 +1,6 @@
 pkgbase = deno
 	pkgdesc = A secure runtime for JavaScript and TypeScript
-	pkgver = 2.2.4
+	pkgver = 2.2.5
 	pkgrel = 1
 	url = https://deno.land
 	arch = x86_64
@@ -17,11 +17,11 @@ pkgbase = deno
 	makedepends = protobuf
 	depends = gcc-libs
 	options = !lto
-	source = git+https://github.com/denoland/deno.git#tag=v2.2.4
-	source = git+https://github.com/denoland/rusty_v8.git#tag=v134.5.0
+	source = git+https://github.com/denoland/deno.git#tag=v2.2.5
+	source = git+https://github.com/denoland/rusty_v8.git#tag=v135.0.0
 	source = compiler-rt-adjust-paths.patch
-	sha512sums = ecc0bb89b3d5b253ec3aeee80ead28a1c75961f37dd9510a4b1c81f292cf3003fc11c35ae020c6985ee7875e8bf4d1a908641663a5e2636d912bac24c715b0cd
-	sha512sums = 3e0a48c3f57dc41373a28758592464b92a44b5c262ec4c33bd46e84eada45cc00c5b51db3a23197b2e62781b0a3f4b597c88be3e1ef4e2625795c7c89b1ebd3f
+	sha512sums = 43943ab4e83465890e34a1d51e7a9c0a617a3eb2ea36ddce3c8502117c445084509c0621a8eb4cac71b1e786265ff30c950c631f12b996ce8ccf1de8801fa35c
+	sha512sums = dfac0d4f4d9de32b6b3770a598159197047213bf05fa86c91a3a101894bae54c9d0d530652b51a4c386e3d1ddf100691492037f6acfb14035684f70589ba13c5
 	sha512sums = 796dd9dcb44ac65b3a1e47b13219549af3c55598f1ce1493ae5ebed469b3791f977415e4dc8528e5f0f4520398665400411f2ecdf15968aa7e405aadd6fbe125
 
 pkgname = deno
