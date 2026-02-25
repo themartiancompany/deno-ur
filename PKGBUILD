@@ -10,7 +10,7 @@ arch=('x86_64')
 url="https://deno.land"
 license=('MIT')
 options=('!lto')
-depends=('gcc-libs' 'lcms2' 'zstd')
+depends=('libgcc' 'lcms2' 'zstd')
 makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
