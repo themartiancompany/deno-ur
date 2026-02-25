@@ -16,6 +16,7 @@ pkgbase = deno
 	makedepends = cmake
 	makedepends = protobuf
 	depends = gcc-libs
+	depends = lcms2
 	depends = zstd
 	options = !lto
 	source = git+https://github.com/denoland/deno.git#tag=v2.6.10

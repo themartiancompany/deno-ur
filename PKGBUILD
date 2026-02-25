@@ -10,7 +10,7 @@ arch=('x86_64')
 url="https://deno.land"
 license=('MIT')
 options=('!lto')
-depends=('gcc-libs' 'zstd')
+depends=('gcc-libs' 'lcms2' 'zstd')
 makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
@@ -51,6 +51,7 @@ build() {
   export GN=/usr/bin/gn NINJA=/usr/bin/ninja
   export EXTRA_GN_ARGS="${_extra_gn_args[@]}"
 
+  export LCMS2_LIB_DIR=/usr/lib
   export ZSTD_SYS_USE_PKG_CONFIG=1
 
   cargo build --release
