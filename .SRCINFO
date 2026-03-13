@@ -15,8 +15,9 @@ pkgbase = deno
 	makedepends = lld
 	makedepends = cmake
 	makedepends = protobuf
-	depends = libgcc
 	depends = lcms2
+	depends = libffi
+	depends = libgcc
 	depends = zstd
 	source = git+https://github.com/denoland/deno.git#tag=v2.7.4
 	source = git+https://github.com/denoland/rusty_v8.git#tag=v146.1.0
