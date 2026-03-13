@@ -29,6 +29,8 @@ prepare() {
   cd ../deno
   echo -e "\n[patch.crates-io]\nv8 = { path = '../rusty_v8' }" >> Cargo.toml
   sed -i '/default = \["upgrade", "__vendored_zlib_ng"\]/d; /keyring/s/, "vendored"//' cli/Cargo.toml
+
+  cargo fetch --target host-tuple
 }
 
 build() {
@@ -56,7 +58,7 @@ build() {
   export ZSTD_SYS_USE_PKG_CONFIG=1
   export CARGO_FEATURE_SYSTEM=1 # Use system-provided libffi
 
-  cargo build --release
+  cargo build --frozen --release
 }
 
 check() {
