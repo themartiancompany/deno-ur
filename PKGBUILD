@@ -9,7 +9,7 @@ pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
 url="https://deno.land"
 license=('MIT')
-depends=('lcms2' 'libffi' 'libgcc' 'zstd')
+depends=('lcms2' 'libffi' 'libgcc' 'zlib' 'zstd')
 makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
@@ -28,6 +28,7 @@ prepare() {
 
   cd ../deno
   echo -e "\n[patch.crates-io]\nv8 = { path = '../rusty_v8' }" >> Cargo.toml
+  sed -i '/default = \["upgrade", "__vendored_zlib_ng"\]/d' cli/Cargo.toml
 }
 
 build() {
