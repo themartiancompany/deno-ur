@@ -9,7 +9,7 @@ pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
 url="https://deno.land"
 license=('MIT')
-depends=('dbus' 'lcms2' 'libffi' 'libgcc' 'zlib' 'zstd')
+depends=('dbus' 'lcms2' 'libffi' 'libgcc' 'sqlite' 'zlib' 'zstd')
 makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
@@ -61,6 +61,7 @@ build() {
   export EXTRA_GN_ARGS="${_extra_gn_args[@]}"
 
   export LCMS2_LIB_DIR=/usr/lib
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
   export CARGO_FEATURE_SYSTEM=1 # Use system-provided libffi
 
