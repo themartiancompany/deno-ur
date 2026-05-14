@@ -2,7 +2,7 @@ diff --git a/build/config/clang/BUILD.gn b/build/config/clang/BUILD.gn
 index d4de2e0cca0..57359c32121 100644
 --- a/build/config/clang/BUILD.gn
 +++ b/build/config/clang/BUILD.gn
-@@ -130,12 +130,15 @@ template("clang_lib") {
+@@ -191,16 +191,20 @@
        } else if (is_linux || is_chromeos) {
          if (current_cpu == "x64") {
            _dir = "x86_64-unknown-linux-gnu"
@@ -18,7 +18,12 @@ index d4de2e0cca0..57359c32121 100644
          } else if (current_cpu == "loong64") {
            _dir = "loongarch64-unknown-linux-gnu"
          } else if (current_cpu == "riscv64") {
-@@ -166,6 +169,11 @@ template("clang_lib") {
+           _dir = "riscv64-unknown-linux-gnu"
++          _suffix = "-riscv64"
+         } else if (current_cpu == "ppc64") {
+           _dir = "ppc64le-unknown-linux-gnu"
+         } else if (current_cpu == "s390x") {
+@@ -235,6 +239,11 @@
          assert(false)  # Unhandled target platform
        }
  

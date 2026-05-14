@@ -16,7 +16,7 @@ source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "compiler-rt-adjust-paths.patch")
 sha512sums=('329f31a27270a5967584df6ca1b4f08427521444c53af6d5f0a0bbfcbc10661198bdc500506fea471706ed6a3bdc491fe44c2cd9f4c15e510adca1f6774edeee'
             'c2c8fd69a41259c654d2bdd2ca36b156d9d5d945726fea935dcbb6e89eec0a9246dbe9f77adbeda670b4d4c5b29a1455a4c53c6e50614543bbba0f6465e863e6'
-            'b3afc9305c5c7884f66e18e12fafded471cd5842ca39391cb21b19f8009ffb502d3534d93af6fdbce27a6690d5ea94cb94cc20793436c108c83dae5b17af3ffa')
+            '2cf562801aa29a6e046ff1f3a21e77db01b0d249a1e814900497d4378aa9475fe55411c8e386e7b48e83860a8d78c916dba1f2365e115d219343f1928b0b442c')
 
 prepare() {
   cd rusty_v8
