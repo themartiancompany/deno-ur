@@ -8,6 +8,7 @@ pkgbase = deno
 	makedepends = git
 	makedepends = python
 	makedepends = rust
+	makedepends = rust-bindgen
 	makedepends = nodejs
 	makedepends = gn
 	makedepends = ninja
