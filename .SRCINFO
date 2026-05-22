@@ -1,6 +1,6 @@
 pkgbase = deno
 	pkgdesc = A secure runtime for JavaScript and TypeScript
-	pkgver = 2.7.14
+	pkgver = 2.8.0
 	pkgrel = 1
 	url = https://deno.com
 	arch = x86_64
@@ -23,11 +23,11 @@ pkgbase = deno
 	depends = sqlite
 	depends = zlib
 	depends = zstd
-	source = git+https://github.com/denoland/deno.git#tag=v2.7.14
-	source = git+https://github.com/denoland/rusty_v8.git#tag=v147.4.0
+	source = git+https://github.com/denoland/deno.git#tag=v2.8.0
+	source = git+https://github.com/denoland/rusty_v8.git#tag=v149.0.0
 	source = compiler-rt-adjust-paths.patch
-	sha512sums = 329f31a27270a5967584df6ca1b4f08427521444c53af6d5f0a0bbfcbc10661198bdc500506fea471706ed6a3bdc491fe44c2cd9f4c15e510adca1f6774edeee
-	sha512sums = c2c8fd69a41259c654d2bdd2ca36b156d9d5d945726fea935dcbb6e89eec0a9246dbe9f77adbeda670b4d4c5b29a1455a4c53c6e50614543bbba0f6465e863e6
+	sha512sums = e0568f9a6cf56050bfb6c9f5db9fd588c65938f86e00daf7dc8ea05e11fdd76e62549b669e8fc0e8de171b91fdaa64c30751ec0b04cec3b21b08d8bfa8a8c803
+	sha512sums = 153fba2da6620a629dd46ee16f70d6f480e7b9817aebc1761e639e68369a631386b611527b7674eacd6fd4d971feb7fb2e4aac9b3a49a98920f260b807f37ef4
 	sha512sums = 8a782d68a6140f739f00d3eb341d742584ee0be80e85e89bc1540a21d15ad8b75274672ebd02e1e4fd1925ed9ca68b05142388e795dff81b0a864d38f5514253
 
 pkgname = deno

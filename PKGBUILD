@@ -2,9 +2,9 @@
 # Contributor: Metal A-wing <1 at 233 dot email>
 
 pkgname=deno
-pkgver=2.7.14
+pkgver=2.8.0
 pkgrel=1
-_rusty_v8_ver=147.4.0
+_rusty_v8_ver=149.0.0
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=('x86_64')
 url="https://deno.com"
@@ -14,8 +14,8 @@ makedepends=('git' 'python' 'rust' 'rust-bindgen' 'nodejs' 'gn' 'ninja' 'clang' 
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
         "compiler-rt-adjust-paths.patch")
-sha512sums=('329f31a27270a5967584df6ca1b4f08427521444c53af6d5f0a0bbfcbc10661198bdc500506fea471706ed6a3bdc491fe44c2cd9f4c15e510adca1f6774edeee'
-            'c2c8fd69a41259c654d2bdd2ca36b156d9d5d945726fea935dcbb6e89eec0a9246dbe9f77adbeda670b4d4c5b29a1455a4c53c6e50614543bbba0f6465e863e6'
+sha512sums=('e0568f9a6cf56050bfb6c9f5db9fd588c65938f86e00daf7dc8ea05e11fdd76e62549b669e8fc0e8de171b91fdaa64c30751ec0b04cec3b21b08d8bfa8a8c803'
+            '153fba2da6620a629dd46ee16f70d6f480e7b9817aebc1761e639e68369a631386b611527b7674eacd6fd4d971feb7fb2e4aac9b3a49a98920f260b807f37ef4'
             '8a782d68a6140f739f00d3eb341d742584ee0be80e85e89bc1540a21d15ad8b75274672ebd02e1e4fd1925ed9ca68b05142388e795dff81b0a864d38f5514253')
 
 prepare() {
@@ -28,8 +28,9 @@ prepare() {
   # Drop flags rejected by the clang++ invoked in our build environment.
   sed -i \
     -e '/-fno-lifetime-dse/d' \
-    -e '/-fsanitize-ignore-for-ubsan-feature=array-bounds/d' \
+    -e '/-fdiagnostics-show-inlining-chain/d' \
     build/config/compiler/BUILD.gn
+  sed -i '/-fsanitize-ignore-for-ubsan-feature=/d' build/config/sanitizers/sanitizers.gni
 
   # https://github.com/denoland/rusty_v8/issues/1587
   patch -Np1 -i ../compiler-rt-adjust-paths.patch
