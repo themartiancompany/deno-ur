@@ -10,7 +10,7 @@ arch=('x86_64')
 url="https://deno.com"
 license=('MIT')
 depends=('dbus' 'lcms2' 'libffi' 'libgcc' 'sqlite' 'wayland' 'zlib' 'zstd')
-makedepends=('git' 'python' 'rust' 'rust-bindgen' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
+makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
         "compiler-rt-adjust-paths.patch")
@@ -22,8 +22,6 @@ prepare() {
   cd rusty_v8
   git config -f .gitmodules submodule.v8.shallow true
   git submodule update --init --recursive
-
-  sed -i '/download_rust_toolchain();/d' build.rs
 
   # Drop flags rejected by the clang++ invoked in our build environment.
   sed -i \
@@ -54,16 +52,11 @@ build() {
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
   local _clang_version=$(clang -dumpversion | cut -d '.' -f 1)
-  local _rustc_version=$(rustc --version)
   local _extra_gn_args=(
     'custom_toolchain="//build/toolchain/linux/unbundle:default"'
     'host_toolchain="//build/toolchain/linux/unbundle:default"'
     "clang_version=\"$_clang_version\""
-    'rust_sysroot_absolute="/usr"'
-    'rust_bindgen_root="/usr"'
-    "rustc_version=\"$_rustc_version\""
     'use_system_libffi=true'
-    'v8_enable_temporal_support=false'
   )
 
   export CC=clang CXX=clang++ AR=/usr/bin/ar NM=nm
