@@ -10,18 +10,26 @@ arch=('x86_64')
 url="https://deno.com"
 license=('MIT')
 depends=('dbus' 'lcms2' 'libffi' 'libgcc' 'sqlite' 'wayland' 'zlib' 'zstd')
-makedepends=('git' 'python' 'rust' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
+makedepends=('git' 'python' 'rust' 'rust-bindgen' 'nodejs' 'gn' 'ninja' 'clang' 'lld' 'cmake' 'protobuf')
 source=("git+https://github.com/denoland/deno.git#tag=v$pkgver"
         "git+https://github.com/denoland/rusty_v8.git#tag=v$_rusty_v8_ver"
-        "compiler-rt-adjust-paths.patch")
+        "compiler-rt-adjust-paths.patch"
+        "deno-2.9.6-rust-system.patch")
 sha512sums=('cc4e68c4c24c0fa383d5319fdac1f019e3a55deeb41bda4eecde032e392f4a392d23d7cefb7a9b0c88b2c7d2d6e0086c7c6f69c2482d13a54aecd00f00f631a6'
             'ae0d6d585cf7ba0172930d09e3d7a2d4bb5d748409e86b44dfa5a12741a51aab138ab12ca8327ac6a36506b9caf6a20fed20f0efd5b7fdf145bd8fdca20f5ed0'
-            '8a782d68a6140f739f00d3eb341d742584ee0be80e85e89bc1540a21d15ad8b75274672ebd02e1e4fd1925ed9ca68b05142388e795dff81b0a864d38f5514253')
+            '8a782d68a6140f739f00d3eb341d742584ee0be80e85e89bc1540a21d15ad8b75274672ebd02e1e4fd1925ed9ca68b05142388e795dff81b0a864d38f5514253'
+            '658e32634fc7463f79099d19e2e54ef59318811209d1e5f7adf5caae9b57ad06dfe9bbe41d272c47d92cd0ad1c746cc0e04775c495c8e120cbd62c88239d1945')
 
 prepare() {
   cd rusty_v8
   git config -f .gitmodules submodule.v8.shallow true
   git submodule update --init --recursive
+
+  # Use system provided rust instead of chromium's rust toolchain
+  # Uses provided use_chromium_rust_toolchain
+  patch -Np1 -i ../deno-2.9.6-rust-system.patch
+
+  sed -i '/download_rust_toolchain();/d' build.rs
 
   # Drop flags rejected by the clang++ invoked in our build environment.
   sed -i \
@@ -52,10 +60,14 @@ build() {
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
 
   local _clang_version=$(clang -dumpversion | cut -d '.' -f 1)
+  local _rustc_version=$(rustc --version | awk '{ print $2 ;}')
   local _extra_gn_args=(
     'custom_toolchain="//build/toolchain/linux/unbundle:default"'
     'host_toolchain="//build/toolchain/linux/unbundle:default"'
     "clang_version=\"$_clang_version\""
+    'rust_sysroot_absolute="/usr"'
+    'rust_bindgen_root="/usr"'
+    "rustc_version=\"$_rustc_version\""
     'use_system_libffi=true'
   )
 
@@ -70,6 +82,7 @@ build() {
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
   export CARGO_FEATURE_SYSTEM=1 # Use system-provided libffi
+  export RUSTC_BOOTSTRAP=1
 
   cargo build --frozen --release
 }
