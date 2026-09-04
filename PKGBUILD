@@ -25,11 +25,9 @@ prepare() {
   git config -f .gitmodules submodule.v8.shallow true
   git submodule update --init --recursive
 
-  # Use system provided rust instead of chromium's rust toolchain
-  # Uses provided use_chromium_rust_toolchain
-  patch -Np1 -i ../deno-2.9.6-rust-system.patch
-
+  # Use system-provided Rust toolchain for V8 build
   sed -i '/download_rust_toolchain();/d' build.rs
+  patch -Np1 -i ../deno-2.9.6-rust-system.patch
 
   # Drop flags rejected by the clang++ invoked in our build environment.
   sed -i \
