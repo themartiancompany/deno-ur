@@ -66,6 +66,7 @@ build() {
     'rust_sysroot_absolute="/usr"'
     'rust_bindgen_root="/usr"'
     "rustc_version=\"$_rustc_version\""
+    'use_sysroot=false'
     'use_system_libffi=true'
   )
 
