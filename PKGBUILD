@@ -167,6 +167,8 @@ sha512sums=(
 sha256sums=(
   "SKIP"
   "SKIP"
+  "71551048cfd5620dc41114f672068753eff5f50dbee221a1b87aaa662232fe8e"
+  "50e247ae7b80124ca9dc79fa24d9cdf708cf9ebb7b224c4887e82fab7508408d"
 )
 
 prepare() {
