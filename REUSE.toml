@@ -18,8 +18,8 @@ path = [
     "*.desktop",
     "*.hook",
 ]
-SPDX-FileCopyrightText = "Arch Linux contributors"
-SPDX-License-Identifier = "0BSD"
+SPDX-FileCopyrightText = "Pellegrino Prevete & Arch Linux contributors"
+SPDX-License-Identifier = "AGPL3"
 
 [[annotations]]
 path = [
