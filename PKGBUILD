@@ -56,10 +56,12 @@ fi
 if [[ ! -v "_compiler" ]]; then
   if [[ "${_os}" == "GNU/Linux" ]]; then
     _compiler="gcc"
+    _compiler="clang"
   elif [[ "${_os}" == "Android" ]]; then
     _compiler="clang"
   elif [[ "${_os}" == "Msys" ]]; then
     _compiler="gcc"
+    _compiler="clang"
   else
     _compiler="gcc"
   fi
@@ -93,7 +95,7 @@ if [[ ! -v "_tag" ]]; then
     _tag="${pkgver}"
   fi
 fi
-pkgrel=3
+pkgrel=4
 _rusty_v8_ver=150.4.0
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=(
