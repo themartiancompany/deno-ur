@@ -190,6 +190,8 @@ prepare() {
     -i \
     '/download_rust_toolchain();/d' \
     "build.rs"
+  # TODO:
+  #   add Android case to the patch
   patch \
     -Np1 \
     -i \
@@ -208,6 +210,8 @@ prepare() {
     '/-fsanitize-ignore-for-ubsan-feature=/d' \
     "build/config/sanitizers/sanitizers.gni"
   # https://github.com/denoland/rusty_v8/issues/1587
+  # TODO:
+  #   add Android case to the patch
   patch \
     -Np1 \
     -i \
@@ -233,11 +237,26 @@ prepare() {
       "host-tuple"
 }
 
+_usr_get() {
+  local \
+    _bin
+  _bin="$(
+    dirname \
+      "$(command \
+           -v \
+	   "env")")"
+  dirname \
+    "${_bin}"
+}
+
 build() {
   local \
     _extra_gn_args=() \
     _clang_version \
-    _rustc_version
+    _rustc_version \
+    _usr
+  _usr="$(
+    _usr_get)"
   cd \
     "${_pkg}"
   # this uses malloc_usable_size,
@@ -263,8 +282,8 @@ build() {
     'custom_toolchain="//build/toolchain/linux/unbundle:default"'
     'host_toolchain="//build/toolchain/linux/unbundle:default"'
     "clang_version=\"${_clang_version}\""
-    'rust_sysroot_absolute="/usr"'
-    'rust_bindgen_root="/usr"'
+    "rust_sysroot_absolute=\"${_usr}\""
+    "rust_bindgen_root=\"${_usr}\""
     "rustc_version=\"${_rustc_version}\""
     'use_sysroot=false'
     'use_system_libffi=true'
@@ -272,22 +291,22 @@ build() {
   export \
     CC="clang" \
     CXX="clang++" \
-    AR="/usr/bin/ar" \
+    AR="${_usr}/bin/ar" \
     NM="nm"
   export \
     BUILD_CC="clang" \
     BUILD_CXX="clang++" \
-    BUILD_AR="/usr/bin/ar" \
+    BUILD_AR="${_usr}/bin/ar" \
     BUILD_NM="nm"
   export \
     V8_FROM_SOURCE=1 \
-    CLANG_BASE_PATH="/usr"
-    GN="/usr/bin/gn" \
-    NINJA="/usr/bin/ninja"
+    CLANG_BASE_PATH="${_usr}"
+    GN="${_usr}/bin/gn" \
+    NINJA="${_usr}/bin/ninja"
   export \
     EXTRA_GN_ARGS="${_extra_gn_args[@]}"
   export \
-    LCMS2_LIB_DIR="/usr/lib" \
+    LCMS2_LIB_DIR="${_usr}/lib" \
     LIBSQLITE3_SYS_USE_PKG_CONFIG=1 \
     ZSTD_SYS_USE_PKG_CONFIG=1
   # Use system-provided libffi
