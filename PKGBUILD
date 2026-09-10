@@ -37,7 +37,36 @@
 #   Metal A-wing
 #     <1 at 233 dot email>
 
-
+_os="$(
+  uname \
+    -o)"
+if [[ ! -v "_wayland" ]]; then
+  if [[ "${_os}" == "GNU/Linux" ]]; then
+    _wayland="true"
+  elif [[ "${_os}" == "Android" ]]; then
+    _wayland="false"
+  elif [[ "${_os}" == "Android" ]]; then
+    _wayland="false"
+  elif [[ "${_os}" == "Msys" ]]; then
+    _wayland="false"
+  else
+    _wayland="false"
+  fi
+fi
+if [[ ! -v "_compiler" ]]; then
+  if [[ "${_os}" == "GNU/Linux" ]]; then
+    _compiler="gcc"
+  elif [[ "${_os}" == "Android" ]]; then
+    _compiler="clang"
+  elif [[ "${_os}" == "Msys" ]]; then
+    _compiler="gcc"
+  else
+    _compiler="gcc"
+  fi
+fi
+if [[ ! -v "_git" ]]; then
+  _git="true"
+fi
 if [[ ! -v "_git_service" ]]; then
   _git_service="github"
 fi
@@ -46,11 +75,24 @@ if [[ ! -v "_ns" ]]; then
   _ns="${_pkg}land"
   _ns="themartiancompany"
 fi
+if [[ ! -v "_tag_name" ]]; then
+  _tag_name="commit"
+fi
+_py="python"
+_node="nodejs"
 pkgbase="${_pkg}"
 pkgname=(
   "${pkgbase}"
 )
 pkgver=2.9.6
+_commit="e518fbd66dda5debcbdefc0beb0b3756b37b64fa"
+if [[ ! -v "_tag" ]]; then
+  if [[ "${_tag_name}" == "commit" ]]; then
+    _tag="${_commit}"
+  elif [[ "${_tag_name}" == "tag" ]]; then
+    _tag="${pkgver}"
+  fi
+fi
 pkgrel=2
 _rusty_v8_ver=150.4.0
 pkgdesc="A secure runtime for JavaScript and TypeScript"
@@ -77,22 +119,33 @@ depends=(
   'libffi'
   'libgcc'
   'sqlite'
-  'wayland'
   'zlib'
   'zstd'
 )
+if [[ "${_wayland}" == "true" ]]; then
+  depends+=(
+    'wayland'
+  )
+fi
 makedepends=(
-  'git'
-  'python'
+  "${_compiler}"
+  'cmake'
+  'gn'
+  "${_node}"
+  'lld'
+  'ninja'
+  'protobuf'
+  "${_py}"
   'rust'
   'rust-bindgen'
-  'nodejs'
-  'gn'
-  'ninja'
-  'clang'
-  'lld'
-  'cmake'
-  'protobuf'
+)
+if [[ "${_git}" == "true" ]]; then
+  makedepends+=(
+    "git"
+  )
+fi
+provides=(
+  "${_node}-${_pkg}=${pkgver}"
 )
 _uri="git+${_url}.git#tag=v${pkgver}"
 _rusty_uri="git+${_http}/${_ns}/rusty_v8.git#tag=v${_rusty_v8_ver}"
@@ -108,6 +161,10 @@ sha512sums=(
   'ae0d6d585cf7ba0172930d09e3d7a2d4bb5d748409e86b44dfa5a12741a51aab138ab12ca8327ac6a36506b9caf6a20fed20f0efd5b7fdf145bd8fdca20f5ed0'
   '8a782d68a6140f739f00d3eb341d742584ee0be80e85e89bc1540a21d15ad8b75274672ebd02e1e4fd1925ed9ca68b05142388e795dff81b0a864d38f5514253'
   '658e32634fc7463f79099d19e2e54ef59318811209d1e5f7adf5caae9b57ad06dfe9bbe41d272c47d92cd0ad1c746cc0e04775c495c8e120cbd62c88239d1945'
+)
+sha256sums=(
+  "SKIP"
+  "SKIP"
 )
 
 prepare() {
