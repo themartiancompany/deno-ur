@@ -93,7 +93,7 @@ if [[ ! -v "_tag" ]]; then
     _tag="${pkgver}"
   fi
 fi
-pkgrel=2
+pkgrel=3
 _rusty_v8_ver=150.4.0
 pkgdesc="A secure runtime for JavaScript and TypeScript"
 arch=(
